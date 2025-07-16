@@ -84,20 +84,53 @@ void countSubset(vector<int> v, int i, int sum)
 }
 
 int ans = 0;
-void Lucky(int n, int target, int index)
+// void Lucky(int n, int target, int index)
+// {
+//     if (n >= target)
+//     {
+//         ans = index;
+//         return;
+//     }
+//     Lucky((n * 10) + 4, target, (index * 2) + 1);
+//     Lucky((n * 10) + 7, target, (index * 2) + 2);
+// }
+
+// int lucky(int n, int target, int index)
+// {
+//     if (n > target)
+//     {
+//         return INT_MIN;
+//     }
+//     if (n == target)
+//     {
+//         return index;
+//     }
+//     int left = lucky((n * 10) + 4, target, (index * 2) + 1);
+//     int right = lucky((n * 10) + 7, target, (index * 2) + 2);
+//     return max(left, right);
+// }
+
+int backtrack(vector<vector<bool>> &vis, vector<vector<int>> v, int i, int j, int ex, int ey)
 {
-    if (n >= target)
+    if (i == ex && j == ey)
     {
-        ans = index;
-        return;
+        return v[i][j];
     }
-    Lucky((n * 10) + 4, target, (index * 2) + 1);
-    Lucky((n * 10) + 7, target, (index * 2) + 2);
+    if (i < 0 || j < 0 || i >= v.size() || j >= v[0].size() || vis[i][j])
+    {
+        return -1e7;
+    }
+    vis[i][j] = true;
+    int left = backtrack(vis, v, i + 1, j, ex, ey);
+    int right = backtrack(vis, v, i, j + 1, ex, ey);
+    vis[i][j] = false;
+    return v[i][j] + max(left, right);
 }
+
+
 
 int main()
 {
-    Lucky(0, 77, 0);
-    cout << ans;
+  
     return 0;
 }
