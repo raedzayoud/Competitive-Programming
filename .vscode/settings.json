@@ -13,7 +13,8 @@
         "xutility": "cpp",
         "format": "cpp",
         "iostream": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
