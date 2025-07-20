@@ -4,18 +4,23 @@
 #include <algorithm>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    void backtrack(vector<vector<int>>& v, vector<int> res,
-                   vector<int>& candidates, int target, int sum, int start) {
-        if (sum > target) {
+    void backtrack(vector<vector<int>> &v, vector<int> res,
+                   vector<int> &candidates, int target, int sum, int start)
+    {
+        if (sum > target)
+        {
             return;
         }
-        if (sum == target) {
+        if (sum == target)
+        {
             v.push_back(res);
             return;
         }
-        for (int i = start; i < candidates.size(); i++) {
+        for (int i = start; i < candidates.size(); i++)
+        {
             sum += candidates[i];
             res.push_back(candidates[i]);
 
@@ -25,20 +30,27 @@ public:
         }
     }
 
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+    {
         vector<vector<int>> result;
         vector<int> res;
-        backtrack(result, res, candidates, target, 0, 0);
-        set<vector<int>> v;
-        for (int i = 0; i < result.size(); i++) {
-            sort(result[i].begin(), result[i].end());
-            v.insert(result[i]); // ensure uniqueness
+        vector<bool> used(nums.size(), false);
+
+        sort(nums.begin(), nums.end());
+        backtrack(result, res, nums, used);
+
+        set<vector<int>> unique_result;
+        for (auto &vec : result)
+        {
+            unique_result.insert(vec);
         }
-        return vector<vector<int>>(v.begin(), v.end());
+
+        return vector<vector<int>>(unique_result.begin(), unique_result.end());
     }
 };
 
-int main() {
+int main()
+{
     Solution sol;
 
     vector<int> candidates = {2, 3, 6, 7};
@@ -47,9 +59,11 @@ int main() {
     vector<vector<int>> combinations = sol.combinationSum(candidates, target);
 
     cout << "Combinations that sum to " << target << ":\n";
-    for (const auto& combo : combinations) {
+    for (const auto &combo : combinations)
+    {
         cout << "[ ";
-        for (int num : combo) {
+        for (int num : combo)
+        {
             cout << num << " ";
         }
         cout << "]\n";
